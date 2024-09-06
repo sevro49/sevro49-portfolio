@@ -4,6 +4,31 @@
 
 @layer base {
   :root {
-    --radius: 0.5rem
+    --radius: 0.5rem;
   }
+  ::selection {
+    background-color: #ffcc00;
+    color: #27272a;
+  }
+
+  ::-moz-selection {
+    background-color: #ffcc00;
+    color: #27272a;
+  }
+}
+
+@font-face {
+  font-family: "Gontserrat";
+  src: local("Gontserrat-Regular"),
+    url("../assets/fonts/gontserrat/Gontserrat-Regular.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Gontserrat-Bold";
+  src: local("Gontserrat-Regular"),
+    url("../assets/fonts/gontserrat/Gontserrat-Bold.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Gontserrat-Light";
+  src: local("Gontserrat-Regular"),
+    url("../assets/fonts/gontserrat/Gontserrat-Light.ttf") format("truetype");
 }
