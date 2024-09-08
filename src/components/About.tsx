@@ -30,7 +30,7 @@ const Hero = () => {
         </div>
         <div className="md:mt-6 text-center">
           <h3 className="text-lg md:text-xl font-semibold mb-3">Technologies I'm Working With:</h3>
-          <div className="flex flex-wrap items-center justify-center gap-6 text-yellow-500 text-3xl md:text-4xl lg:text-5xl">
+          <div className="flex flex-wrap items-center justify-center gap-6 text-yellow-400 text-3xl md:text-4xl lg:text-5xl">
             <Icon icon="simple-icons:react"/>
             <Icon icon="teenyicons:nextjs-solid"/>
             <Icon icon="akar-icons:javascript-fill"/>
