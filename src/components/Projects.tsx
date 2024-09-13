@@ -23,7 +23,7 @@ const projects = [
     id: 1,
     title: "World University Rankings (SPA) 2.0",
     description: "I am leading the development of Version 2 of the World University Rankings SPA, designing a robust system for managing and analyzing large datasets related to global university performance. Utilizing React for dynamic user interfaces, Tailwind CSS for responsive design, and Redux Toolkit for efficient state management, I am enhancing the application’s scalability and data handling capabilities. Additionally, I am leveraging Shadcn/UI to create intuitive and accessible UI components, ensuring a seamless user experience. My role also involves optimizing data visualization and retrieval processes to support informed decision-making by stakeholders.",
-    img: "../../public/file/projects/wur.png",
+    img: "/file/projects/wur.png",
     githubUrl: "https://www.github.com",
     status: "Ongoing",
     techStack: [
@@ -39,7 +39,7 @@ const projects = [
     id: 2,
     title: "Climassist",
     description: "In the Climassists project, my team and I are developing a system designed to manage and process maintenance and installation requests from customers. I use React for dynamic interfaces, Tailwind CSS for responsive design, and Redux Toolkit with React Context API for efficient state management. Shadcn/UI is utilized to create user-friendly components. The system supports multiple user roles and admin controls to effectively handle customer requests and streamline operations.",
-    img: "../../public/file/projects/climassist.png",
+    img: "/file/projects/climassist.png",
     url: "http://climassist.com",
     githubUrl: "https://www.github.com",
     status: "Ongoing",
