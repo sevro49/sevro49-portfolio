@@ -21,10 +21,38 @@ import { Icon } from "@iconify/react/dist/iconify.js";
 const projects = [
   {
     id: 1,
+    title: "Rio Petfood",
+    description: "I am solely responsible for the development of Rio Petfood, a responsive website optimized for mobile, tablet, and desktop devices. Built with Next.js and utilizing client-side rendering, the project leverages Next.js's strengths in optimizing performance for large-scale applications. I focused on improving the page's overall optimization to ensure smooth and efficient performance. By optimizing the image loading strategies and implementing lazy loading, I decreased the page load time by 30%. Tailwind CSS is used for responsive design, while Shadcn/UI ensures a modern and user-friendly interface. Iconify Icons enhance visual consistency and clarity across the site. This ongoing project highlights my expertise in delivering high-performance, mobile-optimized solutions.",
+    img: "/file/projects/rio-petfood.webp",
+    status: "Ongoing",
+    techStack: [
+      "NextJS",
+      "Tailwind CSS",
+      "Shadcn/UI",
+      "Iconify Icons"
+    ],
+  },
+  {
+    id: 2,
+    title: "Climassist",
+    description: "In the Climassist project, my team and I developed a system designed to manage and process maintenance and installation requests from customers. I utilized React for dynamic interfaces, Tailwind CSS for responsive design, and Redux Toolkit combined with React Context API for efficient state management. Shadcn/UI was employed to create user-friendly components. The system supports multiple user roles and admin controls, effectively handling customer requests and streamlining operations.",
+    img: "/file/projects/climassist.webp",
+    status: "Completed",
+    techStack: [
+      "React",
+      "Tailwind CSS",
+      "Redux Toolkit",
+      "React Context API",
+      "Shadcn/UI",
+      "Spring Boot",
+      "PostgreSQL",
+    ],
+  },
+  {
+    id: 3,
     title: "World University Rankings (SPA) 2.0",
     description: "I am leading the development of Version 2 of the World University Rankings SPA, designing a robust system for managing and analyzing large datasets related to global university performance. Utilizing React for dynamic user interfaces, Tailwind CSS for responsive design, and Redux Toolkit for efficient state management, I am enhancing the application’s scalability and data handling capabilities. Additionally, I am leveraging Shadcn/UI to create intuitive and accessible UI components, ensuring a seamless user experience. My role also involves optimizing data visualization and retrieval processes to support informed decision-making by stakeholders.",
-    img: "/file/projects/wur.png",
-    githubUrl: "https://www.github.com",
+    img: "/file/projects/wur.webp",
     status: "Ongoing",
     techStack: [
       "React",
@@ -36,21 +64,47 @@ const projects = [
     ],
   },
   {
-    id: 2,
-    title: "Climassist",
-    description: "In the Climassists project, my team and I are developing a system designed to manage and process maintenance and installation requests from customers. I use React for dynamic interfaces, Tailwind CSS for responsive design, and Redux Toolkit with React Context API for efficient state management. Shadcn/UI is utilized to create user-friendly components. The system supports multiple user roles and admin controls to effectively handle customer requests and streamline operations.",
-    img: "/file/projects/climassist.png",
-    url: "http://climassist.com",
-    githubUrl: "https://www.github.com",
-    status: "Ongoing",
+    id: 4,
+    title: "World University Rankings (SPA)",
+    description: "Developed as part of a 4-person team at the special request of the Istanbul Medeniyet University Rectorate, this Single Page Application (SPA) is designed to collect and manage data for world university rankings. The project involved 2 frontend and 2 backend developers, collaborating to create a dynamic and responsive platform. React was utilized for the frontend, ensuring an interactive user experience, while Tailwind CSS handled the responsive design. On the backend, Spring Boot and PostgreSQL provided robust data management and retrieval capabilities. This project, now in use, supports the university's goal of streamlining the process of gathering and analyzing global university performance data.",
+    img: "/file/projects/upg.webp",
+    status: "Completed",
     techStack: [
       "React",
       "Tailwind CSS",
-      "Redux Toolkit",
-      "React Context API",
-      "Shadcn/UI",
       "Spring Boot",
       "PostgreSQL",
+    ],
+  },
+  {
+    id: 5,
+    title: "Jotbot",
+    description: "Developed during my summer internship as a UI Developer Intern at Jotform, Jotbot was my first project using React. While the bot does not use artificial intelligence, it employs an algorithm to analyze user messages. By leveraging the Jotform API, it filters through pre-stored questions and answers to provide accurate responses to users. I designed the user interface, ensuring an intuitive and visually appealing layout, and made the project fully responsive for seamless use across different devices.",
+    img: "/file/projects/jotbot.webp",
+    githubUrl: "https://github.com/sevro49/jotbot",
+    url: "https://sevro49.github.io/jotbot/",
+    status: "Completed",
+    techStack: [
+      "React",
+      "Jotform API",
+      "Jotform CSS",
+      "Jotform Icons",
+      "Figma"
+    ],
+  },
+  {
+    id: 6,
+    title: "Ultimaker Thingiverse",
+    description: "Developed during my summer internship as a Frontend Developer Intern at Sompo Japan Insurance, this project is a responsive clone of the Ultimaker Thingiverse platform. I focused on delivering an optimized user experience, utilizing Bootstrap 5 for clean and modern styling. For state management, I implemented Pinia, ensuring smooth and efficient data handling across the application. The project also integrates the Thingiverse API to provide real-time data and functionality.",
+    img: "/file/projects/ultimaker-thingiverse.webp",
+    url: "https://sevro49.github.io/ultimaker-thingiverse-clone/",
+    githubUrl: "https://github.com/sevro49/ultimaker-thingiverse-clone",
+    status: "Completed",
+    techStack: [
+      "Vue.js",
+      "Bootstrap 5",
+      "Thingiverse API",
+      "Pinia"
     ],
   },
 ];
@@ -77,7 +131,7 @@ const Projects = () => {
                 <DialogContent className="w-[22rem] sm:w-[30rem] md:w-[45rem] lg:w-[60rem] xl:w-[70rem] 2xl:w-[90rem] h-auto max-w-none p-0">
                   <DialogHeader>
                     <DialogTitle></DialogTitle>
-                  <img src={project.img} alt={project.title} className="rounded-t-xl w-full h-auto" />
+                    <img src={project.img} alt={project.title} className="rounded-t-xl w-full h-auto" />
                     <DialogDescription>
                     </DialogDescription>
                   </DialogHeader>
@@ -98,9 +152,16 @@ const Projects = () => {
               <p><span className="font-semibold text-sm">Tech Stack: </span>{project?.techStack.join(", ")}</p>
               <p className="pt-4 text-justify">{project?.description}</p>
             </CardContent>
-            <CardFooter>
+            <CardFooter className="gap-2">
+              {project?.githubUrl && (
+                <Button className="text-yellow-400 hover:bg-yellow-400 hover:text-black">
+                  <a href={project?.githubUrl} target="_blank" className="text-3xl">
+                    <Icon icon="mdi:github"/>
+                  </a>
+                </Button>
+              )}
               {project?.url && (
-                <Button disabled className="text-yellow-400 hover:bg-yellow-400 hover:text-black">
+                <Button className="text-yellow-400 hover:bg-yellow-400 hover:text-black">
                   <a href={project?.url} target="_blank" className="text-3xl">
                     <Icon icon="tabler:world"/>
                   </a>
