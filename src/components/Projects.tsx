@@ -24,7 +24,8 @@ const projects = [
     title: "Rio Petfood",
     description: "I am solely responsible for the development of Rio Petfood, a responsive website optimized for mobile, tablet, and desktop devices. Built with Next.js and utilizing client-side rendering, the project leverages Next.js's strengths in optimizing performance for large-scale applications. I focused on improving the page's overall optimization to ensure smooth and efficient performance. By optimizing the image loading strategies and implementing lazy loading, I decreased the page load time by 30%. Tailwind CSS is used for responsive design, while Shadcn/UI ensures a modern and user-friendly interface. Iconify Icons enhance visual consistency and clarity across the site. This ongoing project highlights my expertise in delivering high-performance, mobile-optimized solutions.",
     img: "/file/projects/rio-petfood.webp",
-    status: "Ongoing",
+    status: "Completed",
+    url: "https://riopetfood.com/",
     techStack: [
       "NextJS",
       "Tailwind CSS",
@@ -113,17 +114,17 @@ const Projects = () => {
   return (
     <div className="mt-12">
       <div className="text-center">
-        <h1 className=" text-yellow-400 font-semibold text-2xl md:text-3xl lg:text-5xl">
+        <h1 className="text-yellow-400 font-semibold text-2xl md:text-3xl lg:text-5xl">
           My Recent Works
         </h1>
         <p className="text-white text-xs md:text-base md:mt-1 lg:mt-2">
           A collection of projects I've worked on.
         </p>
       </div>
-      <div className="mt-12 pb-6 px-6 md:px-28 lg:px-48 grid grid-cols-1 xl:grid-cols-2 gap-8">
+      <div className="mt-6 lg:mt-12 pb-6 px-4 md:px-16 2xl:px-48 grid grid-cols-1 xl:grid-cols-2 gap-8">
         {projects?.map((project) => (
           <Card key={project.id}>
-            <CardHeader className="space-y-0 m-4 p-0 rounded-t-xl overflow-hidden border-2">
+            <CardHeader className="space-y-0 m-1 md:m-4 p-0 rounded-t-xl overflow-hidden border-2">
               <Dialog>
                 <DialogTrigger>
                   <img src={project.img} alt={project.title} className="rounded-t-xl w-full h-auto hover:scale-110 duration-300" />
@@ -139,35 +140,38 @@ const Projects = () => {
               </Dialog>
               <CardDescription></CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="p-3 pt-0 md:p-6 md:pt-0">
               <div className="flex items-center justify-between gap-4">
                 <CardTitle className="text-lg md:text-2xl">{project?.title}</CardTitle>
                 <Badge className={`p-1 rounded-xl text-xs text-white ${
                   project?.status === 'Ongoing' 
-                  ? 'bg-blue-500' 
+                  ? 'bg-blue-500 hover:bg-blue-600' 
                   : project?.status === 'Completed'
-                  ? 'bg-green-500'
+                  ? 'bg-green-500 hover:bg-green-600'
                   : ''}`}>{project?.status}</Badge>
               </div>
-              <p><span className="font-semibold text-sm">Tech Stack: </span>{project?.techStack.join(", ")}</p>
+              <p className="mt-4"><span className="font-semibold text-sm">Tech Stack: </span>{project?.techStack.join(", ")}</p>
               <p className="pt-4 text-justify">{project?.description}</p>
             </CardContent>
-            <CardFooter className="gap-2">
-              {project?.githubUrl && (
-                <Button className="text-yellow-400 hover:bg-yellow-400 hover:text-black">
-                  <a href={project?.githubUrl} target="_blank" className="text-3xl">
-                    <Icon icon="mdi:github"/>
+            {
+              (project?.githubUrl || project?.url) && (
+              <CardFooter className="gap-2 items-center p-3 pt-0 md:p-6 md:pt-0">
+                {project?.githubUrl && (
+                  <a href={project?.githubUrl} target="_blank">
+                    <Button className="text-yellow-400 hover:bg-yellow-400 hover:text-black">
+                      <Icon icon="mdi:github" className="text-3xl"/>
+                    </Button>
                   </a>
-                </Button>
-              )}
-              {project?.url && (
-                <Button className="text-yellow-400 hover:bg-yellow-400 hover:text-black">
-                  <a href={project?.url} target="_blank" className="text-3xl">
-                    <Icon icon="tabler:world"/>
+                )}
+                {project?.url && (
+                  <a href={project?.url} target="_blank">
+                    <Button className="text-yellow-400 hover:bg-yellow-400 hover:text-black">
+                      <Icon icon="tabler:world" className="text-3xl"/>
+                    </Button>
                   </a>
-                </Button>
-              )}
-            </CardFooter>
+                )}
+              </CardFooter>)
+            }
           </Card>
         ))}
       </div>
