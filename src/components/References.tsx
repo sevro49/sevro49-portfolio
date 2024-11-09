@@ -9,7 +9,7 @@ const references = [
   {
     id: 1,
     title: "Quartz Soft",
-    img: "/file/references/quartzsoft-test.webp",
+    img: "/file/references/quartzsoft.webp",
     url: "https://quartzsoft.com/",
     hoverUrl: "www.quartzsoft.com",
   },
@@ -37,7 +37,7 @@ const References = () => {
             <CardHeader className=" relative space-y-0 p-0 rounded-xl overflow-hidden border-2">
               <VisuallyHidden><CardDescription></CardDescription></VisuallyHidden>
               <a href={reference?.url} target="_blank" className="group">
-                <img src={reference.img} alt={reference.title} className="rounded-t-xl w-full h-auto group-hover:scale-110 duration-300" />
+                <img src={reference.img} alt={reference.title} className="rounded-t-xl w-full h-[10rem] object-contain group-hover:scale-110 duration-300" />
                 <div className="bg-opacity-90 bg-zinc-800 text-white w-full h-full absolute top-full group-hover:top-0 transition-all duration-300 flex flex-col gap-4 items-center justify-center">
                   <p className="font-bold text-base sm:text-lg md:text-xl lg:text-2xl text-center">{reference.title}</p> 
                   <p>{reference.hoverUrl}</p>
