@@ -35,7 +35,7 @@ const contactLinks = [
     "id": 2,
     "name": "+90 0536 561 8687",
     "icon": "ic:baseline-whatsapp",
-    "url": "tel:+905365618687"
+    "url": "https://wa.me/+905365618687"
   }
 ]
 

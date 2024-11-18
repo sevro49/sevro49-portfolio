@@ -43,7 +43,7 @@ const Hero = () => {
                 </a>
 
                 {/* WhatsApp */}
-                <a href="tel:+905365618687">
+                <a href="https://wa.me/+905365618687">
                   <Button className="bg-white hover:bg-zinc-200 flex items-center gap-2">
                     <Icon icon="ic:baseline-whatsapp" className="text-3xl text-zinc-800 group-hover:bg-yellow-400 group-hover:text-zinc-800 rounded-md transition-all duration-300"/>
                     <span className="text-zinc-800 font-semibold text-sm md:text-base">+90 0536 561 8687</span>
