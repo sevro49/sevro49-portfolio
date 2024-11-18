@@ -112,7 +112,7 @@ const projects = [
 
 const Projects = () => {
   return (
-    <div className="mt-12">
+    <div className="my-12">
       <div className="text-center">
         <h1 className="text-yellow-400 font-semibold text-2xl md:text-3xl lg:text-5xl">
           My Recent Works
