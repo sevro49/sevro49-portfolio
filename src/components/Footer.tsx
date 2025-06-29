@@ -12,8 +12,8 @@ const socialLinks = [
     "id": 2,
     "name": "Resume",
     "icon": "mdi:file-download",
-    "url": "/file/emre-guler-resume.pdf",
-    "download": "emre-guler-resume.pdf"
+    "url": "/file/emre_guler_resume.pdf",
+    "download": "emre_guler_resume.pdf"
   },
   {
     "id": 3,
@@ -38,6 +38,11 @@ const contactLinks = [
     "url": "https://wa.me/+905365618687"
   }
 ]
+
+// Bulunduğumuz yılı alan fonksiyon
+const getCurrentYear = (): number => {
+  return new Date().getFullYear();
+}
 
 const Footer = () => {
   return (
@@ -71,7 +76,7 @@ const Footer = () => {
         </div>
       </div>
       <div>
-        <p className='text-center text-yellow-400 pt-12 md:pt-6'>&copy; 2024 Emre Güler</p>
+        <p className='text-center text-yellow-400 pt-12 md:pt-6'>&copy; {getCurrentYear()} Emre Güler</p>
       </div>
     </footer>
   )

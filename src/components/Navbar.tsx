@@ -12,7 +12,7 @@ const Navbar = () => {
           </a>
         </Button>
         <Button className="p-0 h-auto bg-transparent text-yellow-400 hover:bg-yellow-400 hover:text-zinc-800 text-3xl md:text-4xl">
-          <a href="/file/emre-guler-resume.pdf" download="emre-guler-resume.pdf">
+          <a href="/file/emre_guler_resume.pdf" download="emre_guler_resume.pdf">
             <Icon icon="mdi:file-download"/>
           </a>
         </Button>
