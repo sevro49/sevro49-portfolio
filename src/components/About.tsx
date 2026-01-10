@@ -1,4 +1,3 @@
-import profilePic from "../assets/img/emre-guler-talentrank.jpg";
 import { Icon } from "@iconify/react";
 import { Button } from "@/components/ui/button";
 
