@@ -12,7 +12,7 @@ const Hero = () => {
         {/* Personal Info */}
         <div className="flex flex-col md:flex-row items-center justify-center ">
           <img
-            src={profilePic}
+            src="https://github.com/sevro49.png"
             alt="Emre Güler"
             className="w-48 lg:w-96 h-auto aspect-square object-cover rounded-full shadow-lg hover:shadow-xl duration-300 mb-4"
           />
