@@ -1,7 +1,7 @@
 export type Project = {
   id: number;
+  slug: string;
   title: string;
-  description: string;
   img: string;
   status: "Completed" | "Ongoing";
   url?: string;
@@ -13,9 +13,18 @@ export type Project = {
 export const projects: Project[] = [
   {
     id: 1,
+    slug: "athlyze",
+    title: "Athlyze",
+    img: "/file/projects/athlyze.webp",
+    status: "Ongoing",
+    url: "https://ath-lyze.vercel.app/",
+    year: "2025",
+    techStack: ["React", "TypeScript", "Tailwind CSS"],
+  },
+  {
+    id: 2,
+    slug: "rio-petfood",
     title: "Rio Petfood",
-    description:
-      "Responsive, performance-focused commerce experience built with Next.js, optimized imagery, and a refined component system.",
     img: "/file/projects/rio-petfood.webp",
     status: "Completed",
     url: "https://riopetfood.com/",
@@ -23,40 +32,27 @@ export const projects: Project[] = [
     techStack: ["Next.js", "Tailwind CSS", "Shadcn/UI"],
   },
   {
-    id: 2,
+    id: 3,
+    slug: "climassist",
     title: "Climassist",
-    description:
-      "Operations platform for maintenance workflows — multi-role access, admin controls, and a cohesive React front end.",
     img: "/file/projects/climassist.webp",
     status: "Completed",
     year: "2024",
     techStack: ["React", "Redux Toolkit", "Spring Boot", "PostgreSQL"],
   },
   {
-    id: 3,
-    title: "World University Rankings 2.0",
-    description:
-      "Lead engineer on a scalable SPA for large-scale academic datasets, visualization, and stakeholder reporting.",
+    id: 4,
+    slug: "wur",
+    title: "World University Rankings",
     img: "/file/projects/wur.webp",
     status: "Ongoing",
-    year: "2025",
+    year: "2023",
     techStack: ["React", "Redux Toolkit", "Spring Boot", "PostgreSQL"],
   },
   {
-    id: 4,
-    title: "World University Rankings",
-    description:
-      "Team-built ranking data platform commissioned by Istanbul Medeniyet University — full-stack delivery in production.",
-    img: "/file/projects/upg.webp",
-    status: "Completed",
-    year: "2023",
-    techStack: ["React", "Spring Boot", "PostgreSQL"],
-  },
-  {
     id: 5,
+    slug: "jotbot",
     title: "Jotbot",
-    description:
-      "Conversational UI prototype at Jotform — algorithmic Q&A routing with a fully responsive React interface.",
     img: "/file/projects/jotbot.webp",
     githubUrl: "https://github.com/sevro49/jotbot",
     url: "https://sevro49.github.io/jotbot/",
@@ -66,9 +62,8 @@ export const projects: Project[] = [
   },
   {
     id: 6,
+    slug: "ultimaker-thingiverse",
     title: "Ultimaker Thingiverse",
-    description:
-      "High-fidelity Thingiverse clone with API integration, Pinia state, and Bootstrap-driven responsive layouts.",
     img: "/file/projects/ultimaker-thingiverse.webp",
     url: "https://sevro49.github.io/ultimaker-thingiverse-clone/",
     githubUrl: "https://github.com/sevro49/ultimaker-thingiverse-clone",

@@ -5,6 +5,7 @@ import {
   useReducedMotion,
   AnimatePresence,
 } from "framer-motion";
+import { useTranslation } from "react-i18next";
 import { projects, type Project } from "@/data/projects";
 import { cn } from "@/lib/utils";
 
@@ -17,6 +18,7 @@ type PreviewState = {
 };
 
 const SelectedWorks = () => {
+  const { t } = useTranslation();
   const sectionRef = useRef<HTMLElement>(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-10% 0px" });
   const reduceMotion = useReducedMotion();
@@ -42,9 +44,7 @@ const SelectedWorks = () => {
     (event: React.MouseEvent<HTMLElement>) => {
       if (!preview || reduceMotion) return;
       setPreview((prev) =>
-        prev
-          ? { ...prev, x: event.clientX, y: event.clientY }
-          : null,
+        prev ? { ...prev, x: event.clientX, y: event.clientY } : null,
       );
     },
     [preview, reduceMotion],
@@ -70,15 +70,16 @@ const SelectedWorks = () => {
           className="col-span-12 mb-16 md:col-span-5 md:mb-0"
         >
           <p className="text-[0.65rem] font-medium uppercase tracking-[0.35em] text-neutral-500">
-            Selected Works
+            {t("works.kicker")}
           </p>
           <h2 className="mt-6 text-3xl font-semibold tracking-[-0.03em] text-neutral-50 md:text-4xl lg:text-5xl">
-            Projects built for
-            <span className="block text-neutral-500">real-world scale.</span>
+            {t("works.title")}
+            <span className="block text-neutral-500">
+              {t("works.titleAccent")}
+            </span>
           </h2>
           <p className="mt-6 max-w-md text-sm leading-relaxed text-neutral-500 md:text-base">
-            A curated selection of production systems and high-craft interfaces —
-            hover to preview, click through when a live link exists.
+            {t("works.intro")}
           </p>
         </motion.header>
 
@@ -86,7 +87,7 @@ const SelectedWorks = () => {
           <ul className="divide-y divide-neutral-800/90 border-y border-neutral-800/90">
             {projects.map((project, index) => (
               <WorkRow
-                key={project.id}
+                key={project.slug}
                 project={project}
                 index={index}
                 isInView={isInView}
@@ -121,8 +122,8 @@ const SelectedWorks = () => {
               className="aspect-[4/3] w-full object-cover grayscale transition-[filter] duration-500 hover:grayscale-0"
             />
             <div className="border-t border-neutral-800 px-4 py-3">
-              <p className="text-[0.65rem] uppercase tracking-[0.25em] text-neutral-500">
-                {preview.project.techStack.slice(0, 3).join(" · ")}
+              <p className="text-xs leading-relaxed text-neutral-400">
+                {t(`projects.${preview.project.slug}.description`)}
               </p>
             </div>
           </motion.div>
@@ -151,6 +152,7 @@ const WorkRow = ({
   onEnter,
   onLeave,
 }: WorkRowProps) => {
+  const { t } = useTranslation();
   const RowTag = project.url ? "a" : "div";
   const rowProps = project.url
     ? {
@@ -183,16 +185,13 @@ const WorkRow = ({
             <h3 className="text-xl font-medium tracking-[-0.02em] text-neutral-200 transition-colors group-hover:text-white md:text-2xl lg:text-3xl">
               {project.title}
             </h3>
-            <p className="mt-2 max-w-lg text-sm text-neutral-500 transition-colors group-hover:text-neutral-400">
-              {project.techStack.join(" · ")}
+            <p className="mt-2 max-w-md text-sm leading-relaxed text-neutral-500 line-clamp-2">
+              {t(`projects.${project.slug}.description`)}
             </p>
           </div>
         </div>
 
         <div className="flex items-center gap-6 pl-10 md:pl-0">
-          <span className="text-[0.65rem] uppercase tracking-[0.2em] text-neutral-600">
-            {project.status}
-          </span>
           {project.year && (
             <span className="text-sm tabular-nums text-neutral-600">
               {project.year}

@@ -1,15 +1,12 @@
 import { motion, useReducedMotion } from "framer-motion";
-
-const headlineLines = [
-  "Building scalable",
-  "systems & premium",
-  "digital experiences.",
-];
+import { useTranslation } from "react-i18next";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
 const Hero = () => {
+  const { t, i18n } = useTranslation();
   const reduceMotion = useReducedMotion();
+  const headlineLines = t("hero.headline", { returnObjects: true }) as string[];
 
   return (
     <section
@@ -31,24 +28,26 @@ const Hero = () => {
           <p className="text-[0.65rem] font-medium uppercase tracking-[0.35em] text-neutral-500">
             Emre Güler
           </p>
-          <p className="max-w-[14rem] text-sm leading-relaxed text-neutral-400 md:text-base">
-            Full-stack developer crafting architecture-first web products for
-            teams that care about craft.
+          <p className="max-w-[16rem] text-sm leading-relaxed text-neutral-400 md:text-base">
+            {t("hero.role")}
           </p>
           <a
             href="#selected-works"
             className="group inline-flex w-fit items-center gap-3 text-xs uppercase tracking-[0.25em] text-neutral-300 transition-colors hover:text-white"
           >
             <span className="h-px w-8 bg-neutral-600 transition-all group-hover:w-12 group-hover:bg-white" />
-            View work
+            {t("hero.viewWork")}
           </a>
         </motion.div>
 
         <div className="col-span-12 md:col-span-8 md:pl-4 lg:pl-8">
-          <h1 className="max-w-[14ch] text-[clamp(2.75rem,8vw,6.5rem)] font-semibold leading-[0.95] tracking-[-0.04em]">
+          <h1
+            key={i18n.language}
+            className="max-w-[16ch] text-[clamp(2.75rem,8vw,6.5rem)] font-semibold leading-[0.95] tracking-[-0.04em]"
+          >
             {headlineLines.map((line, index) => (
               <motion.span
-                key={line}
+                key={`${i18n.language}-${line}`}
                 className="hero-line block"
                 initial={reduceMotion ? false : { opacity: 0, y: 48 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -64,13 +63,13 @@ const Hero = () => {
           </h1>
 
           <motion.p
+            key={`${i18n.language}-subhead`}
             initial={reduceMotion ? false : { opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.55, ease }}
             className="mt-10 max-w-xl text-base leading-relaxed text-neutral-400 md:text-lg"
           >
-            Full-stack architecture, backend systems, and custom web applications
-            — delivered with clarity, performance, and room to scale.
+            {t("hero.subhead")}
           </motion.p>
         </div>
 
@@ -78,37 +77,33 @@ const Hero = () => {
           initial={reduceMotion ? false : { opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.75, ease }}
-          className="col-span-12 mt-16 flex items-end justify-between gap-8 border-t border-neutral-800/80 pt-8 md:mt-24"
+          className="col-span-12 mt-16 flex items-end border-t border-neutral-800/80 pt-8 md:mt-24"
         >
           <div className="flex flex-wrap gap-x-10 gap-y-2 text-[0.65rem] uppercase tracking-[0.3em] text-neutral-500">
-            <span>Istanbul, TR</span>
-            <span>Available for freelance</span>
-          </div>
-          <div className="hidden text-right text-xs text-neutral-600 sm:block">
-            <span className="tabular-nums">01</span>
-            <span className="mx-2">/</span>
-            <span className="tabular-nums text-neutral-500">04</span>
+            <span>{t("hero.location")}</span>
+            <span>{t("hero.availability")}</span>
           </div>
         </motion.div>
       </div>
 
       <motion.div
-        aria-hidden
-        className="absolute bottom-8 left-1/2 hidden -translate-x-1/2 md:block"
-        initial={reduceMotion ? false : { opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.2, duration: 0.6 }}
+        id="about"
+        initial={reduceMotion ? false : { opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.95, duration: 0.7, ease }}
+        className="site-grid relative z-10 w-full pb-12 pt-2 md:pb-16"
       >
-        <div className="flex flex-col items-center gap-3">
-          <span className="text-[0.6rem] uppercase tracking-[0.4em] text-neutral-600">
-            Scroll
-          </span>
-          <motion.span
-            className="block h-12 w-px origin-top bg-neutral-700"
-            animate={reduceMotion ? undefined : { scaleY: [1, 0.4, 1] }}
-            transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
-          />
+        <div className="col-span-12 md:col-span-4 lg:col-span-3">
+          <p className="text-[0.65rem] font-medium uppercase tracking-[0.35em] text-neutral-500">
+            {t("nav.about")}
+          </p>
         </div>
+        <p
+          key={`${i18n.language}-about`}
+          className="col-span-12 mt-4 max-w-2xl text-base leading-relaxed text-neutral-400 md:col-span-8 md:col-start-5 md:mt-0 md:text-lg lg:col-span-8 lg:col-start-5"
+        >
+          {t("hero.about")}
+        </p>
       </motion.div>
     </section>
   );
