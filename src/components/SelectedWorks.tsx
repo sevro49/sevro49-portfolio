@@ -1,237 +1,225 @@
 import { useCallback, useRef, useState } from "react";
 import {
-  AnimatePresence,
   motion,
-  useMotionValue,
+  useInView,
   useReducedMotion,
-  useSpring,
+  AnimatePresence,
 } from "framer-motion";
-import { selectedProjects, type Project } from "@/data/projects";
-import { Reveal } from "./motion/Reveal";
+import { projects, type Project } from "@/data/projects";
+import { cn } from "@/lib/utils";
 
-const formatIndex = (id: number) => String(id).padStart(2, "0");
+const ease = [0.22, 1, 0.36, 1] as const;
 
-const ProjectRow = ({
-  project,
-  index,
-  onHover,
-  onLeave,
-}: {
+type PreviewState = {
   project: Project;
-  index: number;
-  onHover: (project: Project) => void;
-  onLeave: () => void;
-}) => {
-  const rowRef = useRef<HTMLLIElement>(null);
-  const reduceMotion = useReducedMotion();
-
-  return (
-    <motion.li
-      ref={rowRef}
-      className="group border-t border-zinc-800/90"
-      initial={reduceMotion ? false : { opacity: 0, y: 32 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-5% 0px" }}
-      transition={{
-        duration: 0.85,
-        delay: index * 0.06,
-        ease: [0.22, 1, 0.36, 1],
-      }}
-    >
-      <a
-        href={project.href ?? `#project-${project.id}`}
-        target={project.href ? "_blank" : undefined}
-        rel={project.href ? "noopener noreferrer" : undefined}
-        className="site-grid py-6 md:py-8 lg:py-10"
-        onMouseEnter={() => onHover(project)}
-        onMouseLeave={onLeave}
-        onFocus={() => onHover(project)}
-        onBlur={onLeave}
-      >
-        <span className="col-span-2 text-xs tabular-nums text-zinc-600 md:col-span-1 md:text-sm">
-          {formatIndex(project.id)}
-        </span>
-        <span className="col-span-10 flex flex-col gap-2 md:col-span-5 md:gap-3">
-          <span className="font-display text-2xl font-medium tracking-[-0.02em] text-zinc-100 transition-colors duration-300 group-hover:text-white md:text-3xl lg:text-4xl">
-            {project.title}
-          </span>
-          <span className="text-xs uppercase tracking-[0.2em] text-zinc-600">
-            {project.status} · {project.year}
-          </span>
-        </span>
-        <span className="col-span-12 mt-3 flex flex-wrap gap-x-3 gap-y-1 text-sm text-zinc-500 md:col-span-5 md:mt-0 md:justify-end md:text-right lg:col-span-4 lg:col-start-9">
-          {project.techStack.map((tech, i) => (
-            <span key={tech} className="inline-flex items-center gap-3">
-              {i > 0 && (
-                <span className="hidden text-zinc-700 md:inline" aria-hidden>
-                  /
-                </span>
-              )}
-              <span className="transition-colors duration-300 group-hover:text-zinc-400">
-                {tech}
-              </span>
-            </span>
-          ))}
-        </span>
-        <span
-          className="col-span-12 hidden items-center justify-end text-zinc-600 transition-all duration-500 group-hover:translate-x-1 group-hover:text-zinc-300 md:col-span-1 md:flex"
-          aria-hidden
-        >
-          ↗
-        </span>
-      </a>
-    </motion.li>
-  );
-};
-
-const HoverPreview = ({
-  project,
-  visible,
-  x,
-  y,
-}: {
-  project: Project | null;
-  visible: boolean;
-  x: ReturnType<typeof useSpring>;
-  y: ReturnType<typeof useSpring>;
-}) => {
-  const reduceMotion = useReducedMotion();
-
-  if (reduceMotion) return null;
-
-  return (
-    <motion.div
-      className="pointer-events-none fixed left-0 top-0 z-40 hidden w-[min(28rem,42vw)] overflow-hidden rounded-sm border border-zinc-800 bg-zinc-900 shadow-2xl lg:block"
-      style={{
-        x,
-        y,
-        translateX: "-50%",
-        translateY: "-50%",
-      }}
-      initial={false}
-      animate={{
-        opacity: visible && project ? 1 : 0,
-        scale: visible && project ? 1 : 0.96,
-      }}
-      transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-    >
-      <AnimatePresence mode="wait">
-        {project && (
-          <motion.img
-            key={project.id}
-            src={project.image}
-            alt=""
-            className="aspect-[16/10] w-full object-cover object-top grayscale-[0.15] contrast-[1.05]"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-          />
-        )}
-      </AnimatePresence>
-      <div className="border-t border-zinc-800 px-4 py-3">
-        <p className="text-xs uppercase tracking-[0.2em] text-zinc-500">
-          Preview
-        </p>
-        <p className="mt-1 font-display text-lg text-zinc-100">{project?.title}</p>
-      </div>
-    </motion.div>
-  );
+  x: number;
+  y: number;
 };
 
 const SelectedWorks = () => {
-  const [active, setActive] = useState<Project | null>(null);
-  const [previewVisible, setPreviewVisible] = useState(false);
-  const pointerX = useMotionValue(0);
-  const pointerY = useMotionValue(0);
-  const springX = useSpring(pointerX, { stiffness: 120, damping: 22, mass: 0.4 });
-  const springY = useSpring(pointerY, { stiffness: 120, damping: 22, mass: 0.4 });
   const sectionRef = useRef<HTMLElement>(null);
+  const isInView = useInView(sectionRef, { once: true, margin: "-10% 0px" });
+  const reduceMotion = useReducedMotion();
+  const [preview, setPreview] = useState<PreviewState | null>(null);
+  const [activeId, setActiveId] = useState<number | null>(null);
 
-  const handlePointerMove = useCallback(
-    (e: React.MouseEvent) => {
-      if (!sectionRef.current) return;
-      const rect = sectionRef.current.getBoundingClientRect();
-      if (e.clientY < rect.top || e.clientY > rect.bottom) {
-        setPreviewVisible(false);
+  const showPreview = useCallback(
+    (project: Project, event: React.MouseEvent<HTMLElement>) => {
+      if (reduceMotion || window.matchMedia("(max-width: 1023px)").matches) {
+        setActiveId(project.id);
         return;
       }
-      pointerX.set(e.clientX);
-      pointerY.set(e.clientY);
+      setPreview({
+        project,
+        x: event.clientX,
+        y: event.clientY,
+      });
     },
-    [pointerX, pointerY],
+    [reduceMotion],
   );
 
-  const handleHover = useCallback((project: Project) => {
-    setActive(project);
-    setPreviewVisible(true);
-  }, []);
+  const movePreview = useCallback(
+    (event: React.MouseEvent<HTMLElement>) => {
+      if (!preview || reduceMotion) return;
+      setPreview((prev) =>
+        prev
+          ? { ...prev, x: event.clientX, y: event.clientY }
+          : null,
+      );
+    },
+    [preview, reduceMotion],
+  );
 
-  const handleLeave = useCallback(() => {
-    setPreviewVisible(false);
-    setActive(null);
+  const hidePreview = useCallback(() => {
+    setPreview(null);
+    setActiveId(null);
   }, []);
 
   return (
     <section
-      id="works"
+      id="selected-works"
       ref={sectionRef}
-      className="relative bg-zinc-950 py-24 text-zinc-50 md:py-32 lg:py-40"
-      onMouseMove={handlePointerMove}
-      onMouseLeave={handleLeave}
+      className="relative border-t border-neutral-900 bg-neutral-950 py-24 md:py-32 lg:py-40"
+      onMouseMove={movePreview}
     >
-      <HoverPreview
-        project={active}
-        visible={previewVisible}
-        x={springX}
-        y={springY}
-      />
-
-      <div className="site-grid mb-16 md:mb-24">
-        <div className="col-span-12 lg:col-span-8 lg:col-start-1">
-          <Reveal>
-            <p className="text-[0.65rem] font-medium uppercase tracking-[0.35em] text-zinc-500 md:text-xs">
-              Selected works
-            </p>
-          </Reveal>
-          <Reveal delay={0.08}>
-            <h2 className="mt-4 font-display text-4xl font-semibold tracking-[-0.03em] text-zinc-100 md:text-5xl lg:text-6xl">
-              Crafted for clarity,
-              <br />
-              built to scale.
-            </h2>
-          </Reveal>
-        </div>
-        <Reveal
-          className="col-span-12 mt-8 lg:col-span-4 lg:col-start-9 lg:mt-16 lg:text-right"
-          delay={0.12}
+      <div className="site-grid">
+        <motion.header
+          initial={reduceMotion ? false : { opacity: 0, y: 24 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, ease }}
+          className="col-span-12 mb-16 md:col-span-5 md:mb-0"
         >
-          <p className="text-sm leading-relaxed text-zinc-500 md:text-base">
-            A curated set of products—client platforms, internal tools, and
-            full-stack applications—delivered with obsessive attention to
-            structure and detail.
+          <p className="text-[0.65rem] font-medium uppercase tracking-[0.35em] text-neutral-500">
+            Selected Works
           </p>
-        </Reveal>
+          <h2 className="mt-6 text-3xl font-semibold tracking-[-0.03em] text-neutral-50 md:text-4xl lg:text-5xl">
+            Projects built for
+            <span className="block text-neutral-500">real-world scale.</span>
+          </h2>
+          <p className="mt-6 max-w-md text-sm leading-relaxed text-neutral-500 md:text-base">
+            A curated selection of production systems and high-craft interfaces —
+            hover to preview, click through when a live link exists.
+          </p>
+        </motion.header>
+
+        <div className="col-span-12 md:col-span-7 md:col-start-6 lg:col-start-7">
+          <ul className="divide-y divide-neutral-800/90 border-y border-neutral-800/90">
+            {projects.map((project, index) => (
+              <WorkRow
+                key={project.id}
+                project={project}
+                index={index}
+                isInView={isInView}
+                reduceMotion={!!reduceMotion}
+                isActive={activeId === project.id}
+                onEnter={(e) => showPreview(project, e)}
+                onLeave={hidePreview}
+              />
+            ))}
+          </ul>
+        </div>
       </div>
 
-      <ul className="border-b border-zinc-800/90">
-        {selectedProjects.map((project, index) => (
-          <ProjectRow
-            key={project.id}
-            project={project}
-            index={index}
-            onHover={handleHover}
-            onLeave={handleLeave}
-          />
-        ))}
-      </ul>
-
-      <div className="site-grid mt-12 md:mt-16">
-        <p className="col-span-12 text-center text-xs uppercase tracking-[0.25em] text-zinc-600 lg:col-span-8 lg:col-start-3">
-          Hover a project on desktop to preview · Tap to open when available
-        </p>
-      </div>
+      <AnimatePresence>
+        {preview && !reduceMotion && (
+          <motion.div
+            key={preview.project.id}
+            role="presentation"
+            initial={{ opacity: 0, scale: 0.92 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.96 }}
+            transition={{ duration: 0.35, ease }}
+            className="pointer-events-none fixed z-50 hidden w-[min(22rem,42vw)] overflow-hidden border border-neutral-800 bg-neutral-900 shadow-2xl lg:block"
+            style={{
+              left: preview.x + 24,
+              top: preview.y - 120,
+            }}
+          >
+            <img
+              src={preview.project.img}
+              alt=""
+              className="aspect-[4/3] w-full object-cover grayscale transition-[filter] duration-500 hover:grayscale-0"
+            />
+            <div className="border-t border-neutral-800 px-4 py-3">
+              <p className="text-[0.65rem] uppercase tracking-[0.25em] text-neutral-500">
+                {preview.project.techStack.slice(0, 3).join(" · ")}
+              </p>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
+  );
+};
+
+type WorkRowProps = {
+  project: Project;
+  index: number;
+  isInView: boolean;
+  reduceMotion: boolean;
+  isActive: boolean;
+  onEnter: (event: React.MouseEvent<HTMLElement>) => void;
+  onLeave: () => void;
+};
+
+const WorkRow = ({
+  project,
+  index,
+  isInView,
+  reduceMotion,
+  isActive,
+  onEnter,
+  onLeave,
+}: WorkRowProps) => {
+  const RowTag = project.url ? "a" : "div";
+  const rowProps = project.url
+    ? {
+        href: project.url,
+        target: "_blank" as const,
+        rel: "noopener noreferrer",
+      }
+    : {};
+
+  return (
+    <motion.li
+      initial={reduceMotion ? false : { opacity: 0, y: 20 }}
+      animate={isInView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.7, delay: 0.08 * index, ease }}
+    >
+      <RowTag
+        {...rowProps}
+        className={cn(
+          "group relative flex flex-col gap-4 py-8 transition-colors md:flex-row md:items-center md:justify-between md:gap-8 md:py-10",
+          project.url && "cursor-pointer",
+        )}
+        onMouseEnter={onEnter}
+        onMouseLeave={onLeave}
+      >
+        <div className="flex items-baseline gap-6 md:gap-10">
+          <span className="text-xs tabular-nums text-neutral-600">
+            {String(index + 1).padStart(2, "0")}
+          </span>
+          <div>
+            <h3 className="text-xl font-medium tracking-[-0.02em] text-neutral-200 transition-colors group-hover:text-white md:text-2xl lg:text-3xl">
+              {project.title}
+            </h3>
+            <p className="mt-2 max-w-lg text-sm text-neutral-500 transition-colors group-hover:text-neutral-400">
+              {project.techStack.join(" · ")}
+            </p>
+          </div>
+        </div>
+
+        <div className="flex items-center gap-6 pl-10 md:pl-0">
+          <span className="text-[0.65rem] uppercase tracking-[0.2em] text-neutral-600">
+            {project.status}
+          </span>
+          {project.year && (
+            <span className="text-sm tabular-nums text-neutral-600">
+              {project.year}
+            </span>
+          )}
+          <span
+            aria-hidden
+            className="text-neutral-600 transition-transform duration-300 group-hover:translate-x-1 group-hover:text-neutral-300"
+          >
+            →
+          </span>
+        </div>
+
+        <div
+          className={cn(
+            "overflow-hidden border border-neutral-800 transition-all duration-500 lg:hidden",
+            isActive ? "max-h-64 opacity-100" : "max-h-0 opacity-0",
+          )}
+        >
+          <img
+            src={project.img}
+            alt=""
+            className="aspect-video w-full object-cover grayscale"
+          />
+        </div>
+      </RowTag>
+    </motion.li>
   );
 };
 

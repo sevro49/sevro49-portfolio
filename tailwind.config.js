@@ -6,18 +6,14 @@ export default {
     extend: {
       fontFamily: {
         sans: ['"Geist Variable"', "system-ui", "sans-serif"],
-        display: ['"Geist Variable"', "system-ui", "sans-serif"],
-        regular: ["Gontserrat", "sans-serif"],
-        bold: ["Gontserrat-Bold", "sans-serif"],
-        light: ["Gontserrat-Light", "sans-serif"],
+        regular: ['"Geist Variable"', "system-ui", "sans-serif"],
+        bold: ['"Geist Variable"', "system-ui", "sans-serif"],
+        light: ['"Geist Variable"', "system-ui", "sans-serif"],
       },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
-      },
-      transitionTimingFunction: {
-        out: "cubic-bezier(0.22, 1, 0.36, 1)",
       },
     },
   },

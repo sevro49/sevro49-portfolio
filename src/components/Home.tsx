@@ -3,7 +3,7 @@ import SelectedWorks from "./SelectedWorks";
 
 const Home = () => {
   return (
-    <main id="home" className="w-full">
+    <main className="w-full">
       <Hero />
       <SelectedWorks />
     </main>
