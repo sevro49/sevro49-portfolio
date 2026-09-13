@@ -1,0 +1,68 @@
+{
+  "meta": {
+    "title": "Emre Güler | Full Stack Geliştirici"
+  },
+  "nav": {
+    "primary": "Ana menü",
+    "work": "İşler",
+    "about": "Hakkımda",
+    "contact": "İletişim",
+    "startProject": "Birlikte çalışalım"
+  },
+  "lang": {
+    "label": "Dil",
+    "en": "EN",
+    "tr": "TR"
+  },
+  "hero": {
+    "role": "Temiz mimari ve ölçeklenebilir sistemler üzerine çalışan full-stack geliştirici.",
+    "viewWork": "Çalışmaları gör",
+    "headline": [
+      "Ölçeklenebilir sistemler",
+      "ve premium dijital",
+      "deneyimler."
+    ],
+    "subhead": "Full-stack mimariler, backend sistemleri ve özel web uygulamaları — yüksek performans, temiz kod ve kusursuz ölçeklenebilirlik odağıyla geliştirilir.",
+    "location": "İstanbul, TR",
+    "availability": "Yeni projeler için müsait",
+    "about": "Yapay zeka entegreli SaaS platformları ve ölçeklenebilir IoT ekosistemleri mimarisinde uzmanlaştım. Karmaşık web ve mobil ortamlar için yüksek performanslı çözümler üretiyorum."
+  },
+  "works": {
+    "kicker": "Seçilen işler",
+    "title": "Üretimde duran,",
+    "titleAccent": "ölçeklenen işler.",
+    "intro": "Canlıya alınmış sistemler ve özenle kurgulanmış arayüzlerden bir seçki."
+  },
+  "projects": {
+    "athlyze": {
+      "description": "Kendi antrenman planını kurup takip edebileceğin bir fitness platformu."
+    },
+    "rio-petfood": {
+      "description": "Mama ve ürün gamını sergileyen bir marka vitrini — satış yok, katalog var."
+    },
+    "climassist": {
+      "description": "Bakım ve kurulum taleplerini tek yerden yöneten bir operasyon paneli."
+    },
+    "wur": {
+      "description": "Üniversite sıralama verilerini toplayıp analiz eden bir platform."
+    },
+    "jotbot": {
+      "description": "Kullanıcı sorularını yanıtlara yönlendiren bir sohbet asistanı."
+    },
+    "ultimaker-thingiverse": {
+      "description": "3D modelleri tarayıp inceleyebileceğin bir Thingiverse kopyası."
+    }
+  },
+  "footer": {
+    "kicker": "İletişim",
+    "title": "Konuşalım.",
+    "body": "Canlıya alınacak bir ürününüz, ölçeklenmesi gereken bir sisteminiz veya deneyimli bir full-stack geliştiriciye ihtiyacı olan bir ekibiniz mi var? Ulaşın — 24 saat içinde dönüş yaparım.",
+    "social": "Bağlantılar",
+    "github": "GitHub",
+    "linkedin": "LinkedIn",
+    "resumeEn": "CV (EN)",
+    "resumeTr": "CV (TR)",
+    "copyright": "© {{year}} Emre Güler",
+    "meta": "Full-stack geliştirici · İstanbul"
+  }
+}

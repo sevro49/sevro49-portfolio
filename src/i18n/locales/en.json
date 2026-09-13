@@ -1,0 +1,68 @@
+{
+  "meta": {
+    "title": "Emre Güler | Full Stack Developer"
+  },
+  "nav": {
+    "primary": "Primary",
+    "work": "Work",
+    "about": "About",
+    "contact": "Contact",
+    "startProject": "Start a project"
+  },
+  "lang": {
+    "label": "Language",
+    "en": "EN",
+    "tr": "TR"
+  },
+  "hero": {
+    "role": "Full-stack developer crafting architecture-first web products for teams that care about craft.",
+    "viewWork": "View work",
+    "headline": [
+      "Building scalable",
+      "systems & premium",
+      "digital experiences."
+    ],
+    "subhead": "Full-stack architecture, backend systems, and custom web applications — delivered with clarity, performance, and room to scale.",
+    "location": "Istanbul, TR",
+    "availability": "Available for freelance",
+    "about": "Specialized in architecting AI-integrated SaaS platforms and scalable IoT ecosystems. Focused on driving technical decisions for high-performance web and mobile environments."
+  },
+  "works": {
+    "kicker": "Selected Works",
+    "title": "Projects built for",
+    "titleAccent": "real-world scale.",
+    "intro": "A curated selection of production systems and high-craft interfaces — hover to preview, click through when a live link exists."
+  },
+  "projects": {
+    "athlyze": {
+      "description": "A fitness platform for building and following your own workout plans."
+    },
+    "rio-petfood": {
+      "description": "A brand showcase for the product range — a catalog, not a store."
+    },
+    "climassist": {
+      "description": "An operations panel for handling maintenance and installation requests in one place."
+    },
+    "wur": {
+      "description": "A platform for collecting and analyzing university ranking data."
+    },
+    "jotbot": {
+      "description": "A chat assistant that routes questions to answers."
+    },
+    "ultimaker-thingiverse": {
+      "description": "A Thingiverse clone for browsing and inspecting 3D models."
+    }
+  },
+  "footer": {
+    "kicker": "Contact",
+    "title": "Let's talk.",
+    "body": "Have a product to launch, a system to scale, or a team that needs an experienced full-stack developer? Let's talk — I'll get back to you within 24 hours.",
+    "social": "Social and downloads",
+    "github": "GitHub",
+    "linkedin": "LinkedIn",
+    "resumeEn": "CV (EN)",
+    "resumeTr": "CV (TR)",
+    "copyright": "© {{year}} Emre Güler",
+    "meta": "Full-stack developer · Istanbul"
+  }
+}

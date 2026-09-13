@@ -5,15 +5,57 @@
 @layer base {
   :root {
     --radius: 0.5rem;
+    --site-gutter: clamp(1.25rem, 4vw, 3rem);
   }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5.5rem;
+  }
+
+  body {
+    @apply bg-neutral-950 text-neutral-100;
+  }
+
   ::selection {
-    background-color: #ffcc00;
-    color: #27272a;
+    background-color: rgba(255, 255, 255, 0.16);
+    color: #fafafa;
   }
 
   ::-moz-selection {
-    background-color: #ffcc00;
-    color: #27272a;
+    background-color: rgba(255, 255, 255, 0.16);
+    color: #fafafa;
+  }
+}
+
+@layer components {
+  .site-grid {
+    display: grid;
+    width: 100%;
+    max-width: 90rem;
+    margin-inline: auto;
+    padding-inline: var(--site-gutter);
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: clamp(1rem, 2.5vw, 2rem);
+  }
+
+  .hero-grain::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.045;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .hero-line {
+    color: rgb(163 163 163);
+    transition: color 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .hero-line:hover {
+    color: rgb(250 250 250);
   }
 }
 
@@ -21,14 +63,4 @@
   font-family: "Gontserrat";
   src: local("Gontserrat-Regular"),
     url("../assets/fonts/gontserrat/Gontserrat-Regular.ttf") format("truetype");
-}
-@font-face {
-  font-family: "Gontserrat-Bold";
-  src: local("Gontserrat-Regular"),
-    url("../assets/fonts/gontserrat/Gontserrat-Bold.ttf") format("truetype");
-}
-@font-face {
-  font-family: "Gontserrat-Light";
-  src: local("Gontserrat-Regular"),
-    url("../assets/fonts/gontserrat/Gontserrat-Light.ttf") format("truetype");
 }

@@ -1,85 +1,107 @@
-import { Icon } from "@iconify/react";
+import { useRef } from "react";
+import { motion, useInView, useReducedMotion } from "framer-motion";
+import { useTranslation } from "react-i18next";
 
-const socialLinks = [
-  {
-    "id": 1,
-    "name": "GitHub",
-    "icon": "mdi:github",
-    "url": "https://github.com/sevro49",
-    "target": "_blank"
-  },
-  {
-    "id": 2,
-    "name": "Resume",
-    "icon": "mdi:file-download",
-    "url": "/file/emre_guler_resume.pdf",
-    "download": "emre_guler_resume.pdf"
-  },
-  {
-    "id": 3,
-    "name": "LinkedIn",
-    "icon": "ri:linkedin-fill",
-    "url": "https://www.linkedin.com/in/sevro49/",
-    "target": "_blank"
-  }
-]
-
-const contactLinks = [
-  {
-    "id": 1,
-    "name": "dr.emreguler@hotmail.com.tr",
-    "icon": "material-symbols:mail-outline",
-    "url": "mailto:dr.emreguler@hotmail.com.tr"
-  },
-  {
-    "id": 2,
-    "name": "+90 0536 561 8687",
-    "icon": "ic:baseline-whatsapp",
-    "url": "https://wa.me/+905365618687"
-  }
-]
-
-// Bulunduğumuz yılı alan fonksiyon
-const getCurrentYear = (): number => {
-  return new Date().getFullYear();
-}
+const ease = [0.22, 1, 0.36, 1] as const;
 
 const Footer = () => {
+  const { t } = useTranslation();
+  const sectionRef = useRef<HTMLElement>(null);
+  const isInView = useInView(sectionRef, { once: true, margin: "-8% 0px" });
+  const reduceMotion = useReducedMotion();
+
+  const socialLinks = [
+    {
+      label: t("footer.github"),
+      href: "https://github.com/sevro49",
+      external: true,
+    },
+    {
+      label: t("footer.linkedin"),
+      href: "https://www.linkedin.com/in/sevro49/",
+      external: true,
+    },
+    {
+      label: t("footer.resumeEn"),
+      href: "/file/resume/emre-guler-resume.pdf",
+      download: "emre-guler-resume.pdf",
+    },
+    {
+      label: t("footer.resumeTr"),
+      href: "/file/resume/emre-guler-ozgecmis.pdf",
+      download: "emre-guler-ozgecmis.pdf",
+    },
+  ] as const;
+
   return (
-    <footer className='bg-zinc-900 shadow-up py-12 text-white'>
-      <div className="flex flex-col md:flex-row gap-12 md:gap-0 justify-between">
+    <footer
+      id="contact"
+      ref={sectionRef}
+      className="relative border-t border-neutral-900 bg-neutral-950 pb-10 pt-24 md:pt-32 lg:pt-40"
+    >
+      <div className="site-grid">
+        <motion.div
+          initial={reduceMotion ? false : { opacity: 0, y: 28 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.85, ease }}
+          className="col-span-12 lg:col-span-8"
+        >
+          <p className="text-[0.65rem] font-medium uppercase tracking-[0.35em] text-neutral-500">
+            {t("footer.kicker")}
+          </p>
+          <h2 className="mt-8 text-[clamp(2.5rem,7vw,5.5rem)] font-semibold leading-[0.95] tracking-[-0.04em] text-neutral-100">
+            {t("footer.title")}
+          </h2>
+          <p className="mt-8 max-w-lg text-base leading-relaxed text-neutral-500 md:text-lg">
+            {t("footer.body")}
+          </p>
 
-        {/* Useful Links */}
-        <div className='w-full flex flex-col gap-5 items-center justify-center'>
-          <h2 className='font-semibold text-2xl md:text-3xl'>Useful Links</h2>
-          <div className="flex flex-col gap-3 md:gap-4">
-            {socialLinks?.map((link) => (
-              <a key={link?.id} href={link?.url} target={link?.target} download={link?.download} className='flex items-center gap-2 text-yellow-400 group'>
-                <Icon icon={link?.icon} className=" text-3xl group-hover:bg-yellow-400 group-hover:text-zinc-800 rounded-md transition-all duration-300"/>
-                <span className="text-white">{link?.name}</span>
-              </a>
-            ))}
-          </div>
-        </div>
+          <a
+            href="mailto:dr.emreguler@hotmail.com.tr"
+            className="group mt-12 inline-block text-[clamp(1.25rem,3.5vw,2.25rem)] font-medium tracking-[-0.02em] text-neutral-300 transition-colors hover:text-white"
+          >
+            dr.emreguler@hotmail.com.tr
+            <span className="mt-3 block h-px max-w-0 bg-neutral-500 transition-all duration-500 group-hover:max-w-full group-hover:bg-white" />
+          </a>
+        </motion.div>
 
-        {/* Contact Info */}
-        <div className='w-full flex flex-col self-start gap-5 items-center justify-center'>
-          <h2 className='font-semibold text-2xl md:text-3xl'>Contact</h2>
-          <div className="flex flex-col gap-3 md:gap-4">
-            {contactLinks?.map((link) => (
-              <a key={link?.id} href={link?.url} className='flex items-center gap-2 text-yellow-400 group'>
-                <Icon icon={link?.icon} className=" text-3xl group-hover:bg-yellow-400 group-hover:text-zinc-800 rounded-md transition-all duration-300"/>
-                <span className="text-white">{link?.name}</span>
-              </a>
-            ))}
-          </div>
+        <motion.nav
+          aria-label={t("footer.social")}
+          initial={reduceMotion ? false : { opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.85, delay: 0.12, ease }}
+          className="col-span-12 mt-16 flex flex-col gap-4 lg:col-span-4 lg:col-start-9 lg:mt-32"
+        >
+          {socialLinks.map((link) => (
+            <a
+              key={link.href}
+              href={link.href}
+              {...("external" in link && link.external
+                ? { target: "_blank", rel: "noopener noreferrer" }
+                : {})}
+              {...("download" in link && link.download
+                ? { download: link.download }
+                : {})}
+              className="group flex items-center justify-between border-b border-neutral-800/90 py-4 text-sm uppercase tracking-[0.22em] text-neutral-500 transition-colors hover:border-neutral-600 hover:text-neutral-100"
+            >
+              {link.label}
+              <span
+                aria-hidden
+                className="text-neutral-700 transition-transform duration-300 group-hover:translate-x-1 group-hover:text-neutral-400"
+              >
+                →
+              </span>
+            </a>
+          ))}
+        </motion.nav>
+
+        <div className="col-span-12 mt-20 flex flex-col gap-4 border-t border-neutral-800/80 pt-8 text-[0.65rem] uppercase tracking-[0.28em] text-neutral-600 md:mt-28 md:flex-row md:items-center md:justify-between">
+          <p>{t("footer.copyright", { year: new Date().getFullYear() })}</p>
+          <p className="text-neutral-700">{t("footer.meta")}</p>
         </div>
-      </div>
-      <div>
-        <p className='text-center text-yellow-400 pt-12 md:pt-6'>&copy; {getCurrentYear()} Emre Güler</p>
       </div>
     </footer>
-  )
-}
+  );
+};
 
-export default Footer
+export default Footer;
