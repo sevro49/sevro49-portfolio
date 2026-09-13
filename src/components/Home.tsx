@@ -1,14 +1,12 @@
-import About from "./About";
-import Projects from "./Projects";
-import References from "./References";
+import Hero from "./Hero";
+import SelectedWorks from "./SelectedWorks";
 
 const Home = () => {
   return (
-    <div id="home" className="w-full">
-      <About />
-      <References />
-      <Projects />
-    </div>
+    <main id="home" className="w-full">
+      <Hero />
+      <SelectedWorks />
+    </main>
   );
 };
 

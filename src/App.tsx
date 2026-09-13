@@ -1,16 +1,13 @@
-import Navbar from './components/Navbar'
-import Home from './components/Home'
-import Footer from './components/Footer'
+import Header from "./components/Header";
+import Home from "./components/Home";
 
 function App() {
-
   return (
-    <div className='font-regular bg-gradient-to-b from-zinc-800 to-zinc-900 h-full'>
-      <Navbar />
+    <div className="min-h-full bg-zinc-950 font-sans text-zinc-100 antialiased">
+      <Header />
       <Home />
-      <Footer />
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

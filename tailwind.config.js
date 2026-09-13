@@ -4,10 +4,9 @@ export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
-      boxShadow: {
-        'up': '0 -4px 6px rgba(35, 35, 35, 0.3)'
-      },
       fontFamily: {
+        sans: ['"Geist Variable"', "system-ui", "sans-serif"],
+        display: ['"Geist Variable"', "system-ui", "sans-serif"],
         regular: ["Gontserrat", "sans-serif"],
         bold: ["Gontserrat-Bold", "sans-serif"],
         light: ["Gontserrat-Light", "sans-serif"],
@@ -16,7 +15,10 @@ export default {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
-      }
+      },
+      transitionTimingFunction: {
+        out: "cubic-bezier(0.22, 1, 0.36, 1)",
+      },
     },
   },
   plugins: [require("tailwindcss-animate")],

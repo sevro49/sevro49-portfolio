@@ -6,29 +6,34 @@
   :root {
     --radius: 0.5rem;
   }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  body {
+    @apply bg-zinc-950 text-zinc-100;
+  }
+
   ::selection {
-    background-color: #ffcc00;
-    color: #27272a;
+    background-color: rgb(244 244 245);
+    color: rgb(9 9 11);
   }
 
   ::-moz-selection {
-    background-color: #ffcc00;
-    color: #27272a;
+    background-color: rgb(244 244 245);
+    color: rgb(9 9 11);
   }
 }
 
-@font-face {
-  font-family: "Gontserrat";
-  src: local("Gontserrat-Regular"),
-    url("../assets/fonts/gontserrat/Gontserrat-Regular.ttf") format("truetype");
-}
-@font-face {
-  font-family: "Gontserrat-Bold";
-  src: local("Gontserrat-Regular"),
-    url("../assets/fonts/gontserrat/Gontserrat-Bold.ttf") format("truetype");
-}
-@font-face {
-  font-family: "Gontserrat-Light";
-  src: local("Gontserrat-Regular"),
-    url("../assets/fonts/gontserrat/Gontserrat-Light.ttf") format("truetype");
+@layer components {
+  .site-grid {
+    @apply mx-auto grid w-full max-w-[90rem] grid-cols-12 gap-x-4 px-5 md:gap-x-6 md:px-8 lg:px-12;
+  }
 }
